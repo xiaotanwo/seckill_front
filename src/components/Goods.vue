@@ -35,7 +35,7 @@
             </el-table-column>
             <el-table-column
                 prop="goodsPrice"
-                label="价格"
+                label="原价"
                 width="120">
             </el-table-column>
             <el-table-column
@@ -95,19 +95,12 @@
                 this.alertError("该商品没有秒杀信息")
                 return;
             }
-            this.$router.push("/goodsDetail");
-            // this.$http.get(
-            //     // "http://localhost/goods/getGoods/" + rows[index].id
-            // ).then((res)=>{
-            //     console.log(res);
-            //     if (res.data.ret) {
-            //         alert("nihao");
-            //     } else {
-            //         this.alertError(res.data.msg);
-            //     }
-            // }).catch((res) => {
-            //     this.alertError("未知错误！");
-            // });
+            this.$router.push({
+                path: "/goodsDetail",
+                query: {
+                    goodsId: rows[index].id
+                }
+            });
         },
         createSeckillRow(index, rows) {
             this.$router.push({
@@ -115,7 +108,7 @@
                 query: {
                     goodsId: rows[index].id,
                 }
-                });
+            });
         },
         page(currentPage) {
             this.$http.get(
