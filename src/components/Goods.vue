@@ -8,7 +8,7 @@
                 fixed
                 prop="id"
                 label="编号"
-                width="150">
+                width="80">
             </el-table-column>
             <el-table-column
                 prop="goodsName"
@@ -18,12 +18,15 @@
             <el-table-column
                 prop="goodsTitle"
                 label="标题"
-                width="120">
+                width="200">
             </el-table-column>
             <el-table-column
                 prop="goodsImg"
                 label="图片"
-                width="120">
+                width="200">
+                <template slot-scope="scope">
+            　　　　<img :src="scope.row.goodsImg" width="200" height="200" class="head_pic"/>
+            　　</template>
             </el-table-column>
             <el-table-column
                 prop="goodsDetail"
@@ -49,13 +52,13 @@
                     @click.native.prevent="searchRow(scope.$index, tableData)"
                     type="text"
                     size="small">
-                   查看
+                    详情
                 </el-button>
                 <el-button 
                     @click.native.prevent="createSeckillRow(scope.$index, tableData)"
                     type="text"
                     size="small">
-                    设置
+                    创建秒杀
                 </el-button>
             </template>
             </el-table-column>
@@ -74,8 +77,7 @@
   export default {
       created() {
             this.$http.get(
-                // "http://localhost/goods/getGoodsPage" + currentPage + "/2"
-                "http://localhost:7000/getGoodsPage/1/2"
+                "http://localhost/goods/getGoodsPage/1/2"
             ).then((res)=>{
                 if (res.data.ret) {
                     this.tableData = res.data.obj.records;
@@ -89,10 +91,13 @@
         },
     methods: {
         searchRow(index, rows) {
+            if (rows[index].seckillPrice == null) {
+                this.alertError("该商品没有秒杀信息")
+                return;
+            }
             this.$router.push("/goodsDetail");
             // this.$http.get(
             //     // "http://localhost/goods/getGoods/" + rows[index].id
-            //     "http://localhost:7000/getGoods/" + rows[index].id
             // ).then((res)=>{
             //     console.log(res);
             //     if (res.data.ret) {
@@ -105,12 +110,16 @@
             // });
         },
         createSeckillRow(index, rows) {
-            this.$router.push("/createSeckillGoods");
+            this.$router.push({
+                path: "/createSeckillGoods",
+                query: {
+                    goodsId: rows[index].id,
+                }
+                });
         },
         page(currentPage) {
             this.$http.get(
-                // "http://localhost/goods/getGoodsPage" + currentPage + "/2"
-                "http://localhost:7000/getGoodsPage/" + currentPage + "/2"
+                "http://localhost/goods/getGoodsPage/" + currentPage + "/2"
             ).then((res)=>{
                 if (res.data.ret) {
                     this.tableData = res.data.obj.records;

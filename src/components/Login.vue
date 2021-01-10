@@ -97,14 +97,14 @@
             return;
           }
           this.$http.post(
-            // "http://localhost/user/login",
-            "http://localhost:5000/login",
+            "http://localhost/user/login",
             {
               id: this.input_iphone,
               password: md5(this.slat[0] + this.slat[2] + this.input_password + this.slat[5] + this.slat[4]),
             }
           ).then((res)=>{
             if (res.data.ret) {
+              this.alertSuccess("登录成功！正在进入商品展示页面！")
               this.$router.push("/goods")
             } else {
               this.alertError(res.data.msg);
@@ -122,6 +122,14 @@
         },
         alertError(msg) {
           this.$message.error(
+            {
+              message: msg,
+              center: true,
+            }
+          );
+        },
+        alertSuccess(msg) {
+          this.$message.success(
             {
               message: msg,
               center: true,
