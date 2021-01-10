@@ -1,6 +1,7 @@
 # seckill_front
 # 秒杀系统前端，VUE2
 
+## 后端代码地址：https://github.com/xiaotanwo/seckill
 
 > A Vue.js project
 
