@@ -74,8 +74,8 @@
 </template>
 
 <script>
-  export default {
-      created() {
+    export default {
+        created() {
             this.$http.get(
                 "http://localhost/goods/getGoodsPage/1/2"
             ).then((res)=>{

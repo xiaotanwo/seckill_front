@@ -84,7 +84,7 @@
                     this.alertError(res.data.msg);
                 }
             }).catch((res) => {
-                this.alertError("未知错误！");
+                this.alertError("网络出现故障，请稍后再尝试！");
             });
         },
     methods: {
@@ -94,8 +94,13 @@
             ).then((res)=>{
                 console.log(res);
                 if (res.data.ret) {
-                    this.alertSuccess(res.data.msg);
-                    // this.$router.push("/order");
+                    this.alertSuccess("秒杀成功！正在获取订单！")
+                    this.$router.push({
+                        path: "/order",
+                        query: {
+                            orderId: res.data.obj
+                        }
+                    });
                 } else {
                     this.alertError(res.data.msg);
                 }
