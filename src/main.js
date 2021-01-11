@@ -9,7 +9,9 @@ import 'element-ui/lib/theme-chalk/index.css';
 import axios from 'axios'
 import moment from 'moment'
 
+
 Vue.use(ElementUI);
+axios.defaults.withCredentials = true
 Vue.prototype.$http = axios;
 Vue.prototype.$moment = moment
 

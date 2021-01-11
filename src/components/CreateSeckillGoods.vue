@@ -136,7 +136,7 @@
                                 this.alertError(res.data.msg);
                             }
                         }).catch((res) => {
-                            this.alertError("未知错误！");
+                            this.alertError("网络出现故障，请稍后再尝试！");
                         });
                     } else {
                         this.alertError('提交的数据有误!!');

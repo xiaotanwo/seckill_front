@@ -78,8 +78,8 @@
                 "http://localhost/goods/getGoods/" + this.goodsId
             ).then((res)=>{
                 if (res.data.ret) {
-                    console.log(res.data.obj);
                     this.tableData = res.data.obj;
+                    this.seckillGoodsId = res.data.obj[0].seckillId;
                 } else {
                     this.alertError(res.data.msg);
                 }
@@ -89,23 +89,30 @@
         },
     methods: {
         seckillRow(index, rows) {
-            alert("点击了秒杀！")
-            // this.$router.push("/goodsDetail");
-            // this.$http.get(
-            //     // "http://localhost/goods/getGoods/" + rows[index].id
-            // ).then((res)=>{
-            //     console.log(res);
-            //     if (res.data.ret) {
-            //         alert("nihao");
-            //     } else {
-            //         this.alertError(res.data.msg);
-            //     }
-            // }).catch((res) => {
-            //     this.alertError("未知错误！");
-            // });
+            this.$http.get(
+                "http://localhost/order/createOrder/" + this.seckillGoodsId
+            ).then((res)=>{
+                console.log(res);
+                if (res.data.ret) {
+                    this.alertSuccess(res.data.msg);
+                    // this.$router.push("/order");
+                } else {
+                    this.alertError(res.data.msg);
+                }
+            }).catch((res) => {
+                this.alertError("网络出现故障，请稍后再尝试！");
+            });
         },
         alertError(msg) {
             this.$message.error(
+                {
+                    message: msg,
+                    center: true,
+                }
+            );
+        },
+        alertSuccess(msg) {
+            this.$message.success(
                 {
                     message: msg,
                     center: true,
@@ -117,6 +124,7 @@
       return {
           goodsId: null,
           tableData: null,
+          seckillGoodsId: null,
       }
     }
   }
