@@ -46,12 +46,12 @@
             <el-table-column
                 prop="startDate"
                 label="开始时间"
-                width="120">
+                width="200">
             </el-table-column>
             <el-table-column
                 prop="endDate"
                 label="结束时间"
-                width="120">
+                width="200">
             </el-table-column>
             <el-table-column
                 fixed="right"
@@ -71,8 +71,8 @@
 </template>
 
 <script>
-  export default {
-      created() {
+    export default {
+        created() {
             this.goodsId = this.$route.query.goodsId;
             this.$http.get(
                 "http://localhost/goods/getGoods/" + this.goodsId
