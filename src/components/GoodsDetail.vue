@@ -92,15 +92,16 @@
             this.$http.get(
                 "http://localhost/order/createOrder/" + this.seckillGoodsId
             ).then((res)=>{
-                console.log(res);
                 if (res.data.ret) {
-                    this.alertSuccess("秒杀成功！正在获取订单！")
-                    this.$router.push({
-                        path: "/order",
-                        query: {
-                            orderId: res.data.obj
-                        }
-                    });
+                    this.alertSuccess("秒杀成功！正在获取订单中，请稍后！")
+                    setTimeout(() => {
+                        this.$router.push({
+                            path: "/order",
+                            query: {
+                                orderId: res.data.obj
+                            }
+                        });
+                    }, 1000)
                 } else {
                     this.alertError(res.data.msg);
                 }
